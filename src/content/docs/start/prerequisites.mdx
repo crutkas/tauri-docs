@@ -193,6 +193,44 @@ Tauri uses the Microsoft C++ Build Tools for development as well as Microsoft Ed
 
 Follow the steps below to install the required dependencies.
 
+<details>
+<summary>Optional Windows Setup Automation (PREVIEW)</summary>
+
+:::caution[Personal-source preview, not official guidance]
+This optional experiment in **crutkas/WindowsDeveloperConfig-oem** is not
+endorsed by Tauri or a Microsoft-signed release. The manual steps below remain
+the default.
+
+Review the [implementation draft](https://github.com/crutkas/WindowsDeveloperConfig-oem/pull/2),
+[source and setup requirements](https://github.com/crutkas/WindowsDeveloperConfig-oem/blob/27fe6c29aeb96b85fc41b236355822a2aa09fd83/src/docs/windows-onboarding-preview.md),
+and package terms before running it. It installs software and accepts package
+agreements; it is not a dry run.
+:::
+
+Use a disposable Windows development VM with Git, PowerShell, WinGet, and the
+WinGet Configuration/DSC prerequisites described in that guide. From the
+reviewed checkout's repository root, run in an elevated PowerShell session as
+the intended developer:
+
+```powershell
+.\src\Workloads\install-source.ps1 -Workload tauri
+```
+
+This installs C++ Build Tools 2022 with MSVC and the Windows SDK, stable MSVC
+Rust, and WebView2, without a full Visual Studio IDE, WSL, or personalization.
+For a JavaScript frontend, use
+`.\src\Workloads\tauri\install.ps1 -IncludeNode` instead; Node.js is optional.
+Use only the reviewed `src` checkout, not published bootstrap shortcuts or
+top-level signed workload copies.
+
+The script selects MSVC Rust only for the current session; follow the
+[Rust toolchain guidance](#rust) for future terminals. It does **not** enable
+[VBScript for MSI installers](#vbscript-for-msi-installers), install the Tauri
+CLI, or create a project. Clean-VM installation, rerun, app-build, and installer
+validation remain required before this preview becomes production guidance.
+
+</details>
+
 #### Microsoft C++ Build Tools
 
 1. Download the [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installer and open it to begin installation.
